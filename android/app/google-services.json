@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "295460205216",
+    "project_id": "nutribuddy-a58f7",
+    "storage_bucket": "nutribuddy-a58f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:295460205216:android:061157a2bc4d6c9e874fc5",
+        "android_client_info": {
+          "package_name": "com.example.cubethon_nutribuddy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "295460205216-cjbph74kh7s4lnefsbug045fk2rlat0c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBR-Kk0U0gYj9oRWockMfKMWNQR4wTlNSk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "295460205216-cjbph74kh7s4lnefsbug045fk2rlat0c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

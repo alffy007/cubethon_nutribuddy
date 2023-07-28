@@ -1,0 +1,32 @@
+name: cubethon_nutribuddy
+description: A new Flutter project.
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.1.0-149.0.dev <4.0.0'
+
+dependencies:
+
+
+  avatar_glow: ^2.0.2
+  cloud_firestore: ^4.8.4
+  firebase_core: ^2.15.0
+  flutter:
+    sdk: flutter
+  flutter_sound: ^9.2.13
+  google_fonts: ^5.1.0
+  http: ^1.1.0
+  record: ^4.4.4
+  sizer: ^2.0.15
+   
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/new2.mp3
