@@ -62,6 +62,45 @@ class _DashboardState extends State<Dashboard> {
               ),
             ),
             Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Material(
+                  elevation: 10,
+                  clipBehavior: Clip.hardEdge,
+                  borderRadius: BorderRadius.circular(20),
+                  child: InkWell(
+                    onTap: () {
+                      // Handle the button tap here
+                      print('Button tapped!');
+                    },
+                    child: Container(
+                      height: 350,
+                      width: 400,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: Colors.transparent, width: 0),
+                      ),
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            'assets/AI-unscreen.gif',
+                            fit: BoxFit.cover,
+                            height: 300,
+                            width: 300,
+                          ),
+                          Text(
+                            'Tap to Chat',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                              color: const Color.fromARGB(255, 0, 0, 0),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )),
+            ),
+            Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
                 'Today\'s target',
@@ -299,9 +338,10 @@ class _DashboardState extends State<Dashboard> {
                   width: 375,
                   decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                  child: Image.network(
-                    'https://images.pexels.com/photos/2059153/pexels-photo-2059153.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-                    fit: BoxFit.cover,
+                  child: Image.asset(
+                    'assets/loading.gif',
+                    height: 300,
+                    width: 300,
                   ),
                 ),
               ),
