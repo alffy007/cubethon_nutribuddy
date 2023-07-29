@@ -11,6 +11,7 @@ dependencies:
 
   avatar_glow: ^2.0.2
   cloud_firestore: ^4.8.4
+  firebase_auth: ^4.7.2
   firebase_core: ^2.15.0
   firebase_storage: ^11.2.5
   flutter:
@@ -22,6 +23,7 @@ dependencies:
   permission_handler: ^10.4.3
   record: ^4.4.4
   sizer: ^2.0.15
+  video_player: ^2.7.0
    
 
 dev_dependencies:
@@ -33,3 +35,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets/new2.mp3
+    - assets/
+    - assets/images/
