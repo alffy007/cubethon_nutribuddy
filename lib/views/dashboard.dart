@@ -293,10 +293,10 @@ class _DashboardState extends State<Dashboard> {
                         padding: const EdgeInsets.all(10.0),
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => ),
-                            );
+                            // Navigator.push(
+                            // context,
+                            // MaterialPageRoute(builder: (context) => ),
+                            // );
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -330,25 +330,6 @@ class _DashboardState extends State<Dashboard> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Material(
-                elevation: 10,
-                clipBehavior: Clip.hardEdge,
-                borderRadius: BorderRadius.circular(20),
-                child: Container(
-                  height: 200,
-                  width: 375,
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                  child: Image.asset(
-                    'assets/loading.gif',
-                    height: 300,
-                    width: 300,
-                  ),
-                ),
-              ),
-            )
           ],
         ),
       )),
