@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:srm_app/UI/foodscan.dart';
-import 'package:srm_app/widgets/indicators.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -274,7 +272,6 @@ class _DashboardState extends State<Dashboard> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Indicator(),
                   Material(
                     elevation: 10,
                     borderRadius: BorderRadius.circular(20),
@@ -288,13 +285,7 @@ class _DashboardState extends State<Dashboard> {
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const FoodScan()),
-                            );
-                          },
+                          onTap: () {},
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),

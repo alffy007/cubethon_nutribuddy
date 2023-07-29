@@ -82,6 +82,7 @@ class _ChatScreenState extends State<ChatScreen> {
     } catch (e) {
       print('error start rec: $e');
     }
+    dataBaseMethods.uploadAudioToFirebase(audiopath);
   }
 
   @override

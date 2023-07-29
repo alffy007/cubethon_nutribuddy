@@ -12,6 +12,7 @@ dependencies:
   avatar_glow: ^2.0.2
   cloud_firestore: ^4.8.4
   firebase_core: ^2.15.0
+  firebase_storage: ^11.2.5
   flutter:
     sdk: flutter
   flutter_sound: ^9.2.13
