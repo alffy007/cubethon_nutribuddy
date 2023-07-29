@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:srm_app/UI/foodscan.dart';
-import 'package:srm_app/widgets/indicators.dart';
+
+import 'chatscreen.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -26,7 +26,8 @@ class _DashboardState extends State<Dashboard> {
                 children: [
                   const CircleAvatar(
                     maxRadius: 30,
-                    backgroundImage: AssetImage('assets/images/man.png'),
+                    backgroundImage: NetworkImage(
+                        'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=740&t=st=1690608480~exp=1690609080~hmac=07f58506219bb34c2fc404014b3ef2ca0d468610d222b2f5e95ebfaf8f98f429'),
                   ),
                   const SizedBox(
                     width: 20,
@@ -70,7 +71,10 @@ class _DashboardState extends State<Dashboard> {
                   child: InkWell(
                     onTap: () {
                       // Handle the button tap here
-                      print('Button tapped!');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ChatScreen()),
+                      );
                     },
                     child: Container(
                       height: 350,
@@ -274,7 +278,7 @@ class _DashboardState extends State<Dashboard> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Indicator(),
+                  // const Indicator(),
                   Material(
                     elevation: 10,
                     borderRadius: BorderRadius.circular(20),
@@ -292,7 +296,7 @@ class _DashboardState extends State<Dashboard> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const FoodScan()),
+                                  builder: (context) => ChatScreen()),
                             );
                           },
                           child: Container(
