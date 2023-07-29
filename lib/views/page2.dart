@@ -4,8 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'page3.dart';
 
 class SecondPage extends StatefulWidget {
-  const SecondPage({super.key});
-
+  SecondPage({super.key, required this.age});
+  late int age;
   @override
   State<SecondPage> createState() => _SecondPageState();
 }
@@ -52,15 +52,17 @@ class _SecondPageState extends State<SecondPage> {
                       child: Card(
                         child: InkWell(
                           onTap: () {
-                            final _gender = "man";
+                            _gender = "man";
                             print('------------------------' +
                                 _gender.toString() +
                                 '---------');
+                            print(widget.age);
 
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const ThirdPage()),
+                                  builder: (context) => ThirdPage(
+                                      age: widget.age, gender: _gender)),
                             );
                           },
                           child: Container(
@@ -89,7 +91,8 @@ class _SecondPageState extends State<SecondPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const ThirdPage()),
+                                  builder: (context) => ThirdPage(
+                                      age: widget.age, gender: _gender)),
                             );
                           },
                           child: Container(
@@ -133,7 +136,8 @@ class _SecondPageState extends State<SecondPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const ThirdPage()),
+                            builder: (context) =>
+                                ThirdPage(age: widget.age, gender: _gender)),
                       );
                     } catch (e) {}
                   },

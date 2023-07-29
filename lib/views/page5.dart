@@ -4,7 +4,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'page6.dart';
 
 class FifthPage extends StatefulWidget {
-  const FifthPage({super.key});
+  FifthPage(
+      {super.key,
+      required this.age,
+      required this.gender,
+      required this.height,
+      required this.weight});
+  late int age;
+  late String gender;
+  late int height;
+  late int weight;
 
   @override
   State<FifthPage> createState() => _FifthPageState();
@@ -12,9 +21,9 @@ class FifthPage extends StatefulWidget {
 
 class _FifthPageState extends State<FifthPage> {
   @override
-  late final TextEditingController _to_gain_or_loose;
+  late final TextEditingController _health_issues;
   void initState() {
-    _to_gain_or_loose = TextEditingController();
+    _health_issues = TextEditingController();
     super.initState();
   }
 
@@ -28,7 +37,7 @@ class _FifthPageState extends State<FifthPage> {
             child: Column(children: <Widget>[
               const Padding(padding: EdgeInsets.all(20)),
               Text(
-                'Loose or Gain ?',
+                'any health issues?',
                 style: GoogleFonts.getFont(
                   "Poppins",
                   textStyle: const TextStyle(
@@ -58,14 +67,14 @@ class _FifthPageState extends State<FifthPage> {
                     cursorWidth: 5,
                     enableSuggestions: false,
                     autocorrect: false,
-                    controller: _to_gain_or_loose,
+                    controller: _health_issues,
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0),
                       ),
-                      hintText: "loose or gain ",
+                      hintText: "Disease can't affect your will power",
                     )),
               ),
               const SizedBox(height: 30),
@@ -86,15 +95,22 @@ class _FifthPageState extends State<FifthPage> {
                               side: BorderSide(
                                   color: Color.fromARGB(255, 243, 238, 238))))),
                   onPressed: () async {
-                    final to_gain_or_loose = _to_gain_or_loose.text;
+                    final health_issues = _health_issues.text;
                     try {
                       print('------------------------' +
-                          to_gain_or_loose.toString() +
+                          health_issues.toString() +
                           '---------');
+                      String health_issue = _health_issues.text.toString();
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const SixthPage()),
+                            builder: (context) => SixthPage(
+                                  age: widget.age,
+                                  gender: widget.gender,
+                                  height: widget.height,
+                                  weight: widget.weight,
+                                  healthissues: health_issue,
+                                )),
                       );
                     } catch (e) {}
                   },

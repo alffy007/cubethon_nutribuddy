@@ -47,6 +47,16 @@ class DataBaseMethods {
     });
   }
 
+  updateAbout(String chatRoomId, messageMap) {
+    FirebaseFirestore.instance
+        .collection('new')
+        .doc(chatRoomId)
+        .set(messageMap)
+        .catchError((e) {
+      print(e.toString());
+    });
+  }
+
   addConversationMessage(String chatRoomId, messageMap) {
     FirebaseFirestore.instance
         .collection('chatroom')
@@ -111,6 +121,38 @@ class DataBaseMethods {
     }
   }
 
+  makeDietRequest(Map aboutmap) async {
+    const url =
+        'https://web-production-c604.up.railway.app/diet'; // Replace with your API endpoint
+    Map<String, dynamic> postData = {
+      "weight": aboutmap['weight'],
+      "height": aboutmap['height'],
+      "age": aboutmap['age'],
+      "healthissues": aboutmap['healthissues'],
+      "v_or_n": aboutmap['v_or_n'],
+    };
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json', // Set the content type to JSON
+        },
+        body: jsonEncode(postData), // Encode the data as JSON
+      );
+
+      if (response.statusCode == 200) {
+        // Request successful, handle the response data
+        print('Response: ${response.body}');
+      } else {
+        // Request failed with an error status code, handle the error
+        print('Error: ${response.reasonPhrase}');
+      }
+    } catch (e) {
+      // An error occurred while making the request
+      print('Error: $e');
+    }
+  }
+
 // Function to upload the recorded audio file to Firebase Storage
   Future<void> uploadAudioToFirebase(audiopath) async {
     if (audiopath != null) {
@@ -131,7 +173,6 @@ class DataBaseMethods {
       print('No recorded audio to upload.');
     }
   }
-
 
   Future<void> uploadAudioFromAssets(String assetPath) async {
     // Load the audio file from assets
@@ -186,5 +227,4 @@ class DataBaseMethods {
       print('Error uploading audio: $e');
     }
   }
-  
 }

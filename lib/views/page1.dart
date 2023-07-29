@@ -88,7 +88,7 @@ class _FirstPageState extends State<FirstPage> {
                                         color: Color.fromARGB(
                                             255, 243, 238, 238))))),
                     onPressed: () async {
-                      final age = _age.text;
+                      int age = int.parse(_age.text);
                       try {
                         print('------------------------' +
                             age.toString() +
@@ -96,7 +96,9 @@ class _FirstPageState extends State<FirstPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const SecondPage()),
+                              builder: (context) => SecondPage(
+                                    age: age,
+                                  )),
                         );
                       } catch (e) {}
                     },

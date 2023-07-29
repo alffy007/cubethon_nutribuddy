@@ -4,7 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'page4.dart';
 
 class ThirdPage extends StatefulWidget {
-  const ThirdPage({super.key});
+  ThirdPage({super.key, required this.age, required this.gender});
+  late int age;
+  late String gender;
 
   @override
   State<ThirdPage> createState() => _ThirdPageState();
@@ -89,15 +91,20 @@ class _ThirdPageState extends State<ThirdPage> {
                                         color: Color.fromARGB(
                                             255, 243, 238, 238))))),
                     onPressed: () async {
-                      final height = _height.text;
                       try {
                         print('------------------------' +
-                            height.toString() +
+                            _height.toString() +
                             '---------');
+                        print(widget.age);
+                        print(widget.gender);
+                        int h = int.parse(_height.text);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const ForthPage()),
+                              builder: (context) => ForthPage(
+                                  age: widget.age,
+                                  gender: widget.gender,
+                                  height: h)),
                         );
                       } catch (e) {}
                     },

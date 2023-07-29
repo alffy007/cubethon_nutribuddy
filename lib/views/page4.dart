@@ -5,7 +5,14 @@ import 'page5.dart';
 import 'page6.dart';
 
 class ForthPage extends StatefulWidget {
-  const ForthPage({super.key});
+  ForthPage(
+      {super.key,
+      required this.age,
+      required this.gender,
+      required this.height});
+  late int age;
+  late String gender;
+  late int height;
 
   @override
   State<ForthPage> createState() => _ForthPageState();
@@ -94,10 +101,16 @@ class _ForthPageState extends State<ForthPage> {
                         print('------------------------' +
                             weight.toString() +
                             '---------');
+                        int w = int.parse(_weight.text);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const FifthPage()),
+                              builder: (context) => FifthPage(
+                                    age: widget.age,
+                                    gender: widget.gender,
+                                    height: widget.height,
+                                    weight: w,
+                                  )),
                         );
                       } catch (e) {}
                     },

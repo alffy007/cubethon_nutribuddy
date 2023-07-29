@@ -1,3 +1,5 @@
+import 'package:cubethon_nutribuddy/db/database.dart';
+import 'package:cubethon_nutribuddy/views/chatviewer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -5,7 +7,18 @@ import 'dashboard.dart';
 import 'page3.dart';
 
 class SixthPage extends StatefulWidget {
-  const SixthPage({super.key});
+  SixthPage(
+      {super.key,
+      required this.age,
+      required this.gender,
+      required this.height,
+      required this.weight,
+      required this.healthissues});
+  late int age;
+  late String gender;
+  late int height;
+  late int weight;
+  late String healthissues;
 
   @override
   State<SixthPage> createState() => _SixthPageState();
@@ -57,11 +70,24 @@ class _SixthPageState extends State<SixthPage> {
                             print('------------------------' +
                                 _veg_or_nonveg.toString() +
                                 '---------');
+                            String v_or_n = _veg_or_nonveg.toString();
+                            print(widget.age);
+                            print(widget.gender);
+                            print(widget.height);
+                            print(widget.weight);
+                            print(widget.healthissues);
+                            updateAbout(
+                                widget.age,
+                                widget.height,
+                                widget.weight,
+                                widget.gender,
+                                widget.healthissues,
+                                v_or_n);
 
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const ThirdPage()),
+                                  builder: (context) => Dietviewer()),
                             );
                           },
                           child: Container(
@@ -87,10 +113,23 @@ class _SixthPageState extends State<SixthPage> {
                             print('------------------------' +
                                 _veg_or_nonveg.toString() +
                                 '---------');
+                            String v_or_n = _veg_or_nonveg.toString();
+                            print(widget.age);
+                            print(widget.gender);
+                            print(widget.height);
+                            print(widget.weight);
+                            print(widget.healthissues);
+                            updateAbout(
+                                widget.age,
+                                widget.height,
+                                widget.weight,
+                                widget.gender,
+                                widget.healthissues,
+                                v_or_n);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const ThirdPage()),
+                                  builder: (context) => Dietviewer()),
                             );
                           },
                           child: Container(
@@ -131,6 +170,15 @@ class _SixthPageState extends State<SixthPage> {
                       print('------------------------' +
                           _veg_or_nonveg.toString() +
                           '---------');
+                      String v_or_n = _veg_or_nonveg.toString();
+                      print(widget.age);
+                      print(widget.gender);
+                      print(widget.height);
+                      print(widget.weight);
+                      print(widget.healthissues);
+                      updateAbout(widget.age, widget.height, widget.weight,
+                          widget.gender, widget.healthissues, v_or_n);
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => Dashboard()),
@@ -150,5 +198,21 @@ class _SixthPageState extends State<SixthPage> {
             ]),
           ),
         ));
+  }
+
+  updateAbout(age, height, weight, gender, healthissues, v_or_n) {
+    Map<String, dynamic> messagemap = {
+      "age": age,
+      "height": height,
+      "weight": weight,
+      "healthissue": healthissues,
+      "gender": gender,
+      "v_or_n": v_or_n
+
+      // "dietname":dietname;
+      // "dietinstruction":dietinstructions;
+    };
+    DataBaseMethods().updateAbout("about", messagemap);
+    DataBaseMethods().makeDietRequest(messagemap);
   }
 }
