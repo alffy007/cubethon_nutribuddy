@@ -51,7 +51,7 @@ class DataBaseMethods {
     FirebaseFirestore.instance
         .collection('chatroom')
         .doc(chatRoomId)
-        .collection('Chats')
+        .collection('chats')
         .add(messageMap)
         .catchError((e) {
       print(e.toString());
@@ -74,9 +74,9 @@ class DataBaseMethods {
         .snapshots();
   }
 
-  Future<void> makePostRequest(String sentence) async {
+  Future<void> makePostRequest(String sentence,String food) async {
     const url =
-        'https://web-production-1014.up.railway.app/add/'; // Replace with your API endpoint
+        'https://final-production-44a7.up.railway.app/question'; // Replace with your API endpoint
 
     // The data you want to send in the POST request
     Map<String, dynamic> postData = {
@@ -85,8 +85,10 @@ class DataBaseMethods {
       "height": "5.7",
       "age": "23",
       "healthissues": "diabetic",
-      "food": "",
-      "sentence": sentence
+      "food": food,
+      "sentence": sentence,
+      "date":"28-07-23",
+      "time":DateTime.now().millisecondsSinceEpoch
     };
 
     try {
@@ -141,7 +143,7 @@ class DataBaseMethods {
 
     // Get the temporary directory on the device
     Directory tempDir = await getTemporaryDirectory();
-    String tempPath = '${tempDir.path}/sample.m4a';
+    String tempPath = '${tempDir.path}/sample.wav';
 
     // Write the bytes to the temporary file
     File tempFile = File(tempPath);

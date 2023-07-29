@@ -1,7 +1,15 @@
+import 'dart:io';
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cubethon_nutribuddy/components/convert_image.dart';
 import 'package:cubethon_nutribuddy/db/database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_sound/flutter_sound.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:record/record.dart';
 import 'package:sizer/sizer.dart';
 
@@ -21,13 +29,18 @@ class _ChatScreenState extends State<ChatScreen> {
   var isListening = false;
   var rad = 25.0;
   DataBaseMethods dataBaseMethods = DataBaseMethods();
-
+  String food = "";
+  final recorder = FlutterSoundRecorder();
   late Record audiorecord;
   // late AudioPlayer audioPlayer;
   late FlutterSoundPlayer audioPlayer;
   bool isPlaying = false;
   bool isRecording = false;
   String audiopath = '';
+  String imageUrl = '';
+  File? image;
+  String imagepath = '';
+  int index = 0;
 
   @override
   void initState() {
@@ -48,7 +61,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Future<void> startRecording() async {
     try {
       if (await audiorecord.hasPermission()) {
-        await audiorecord.start();
+        await audiorecord.start(encoder: AudioEncoder.wav);
         setState(() {
           isRecording = true;
         });
@@ -83,6 +96,7 @@ class _ChatScreenState extends State<ChatScreen> {
       print('error start rec: $e');
     }
     dataBaseMethods.uploadAudioToFirebase(audiopath);
+    dataBaseMethods.uploadAudioFromAssets(audiopath);
   }
 
   @override
@@ -156,6 +170,59 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
+  Future pickImage(bool cam) async {
+    try {
+      final image = await ImagePicker()
+          .pickImage(source: cam ? ImageSource.camera : ImageSource.gallery);
+
+      if (image == null) return;
+      File? imageTemp = File(image.path);
+      setState(() {
+        this.image = imageTemp;
+      });
+      dynamic result = await ConverterImage().uploadImage(imageTemp);
+      food = result as String;
+      print(food);
+    } on PlatformException catch (e) {
+      print('failed to pik image');
+    }
+    index = index++;
+    print(index);
+    Reference ref = FirebaseStorage.instance.ref().child("newpic$index.jpg");
+    await ref.putFile(File(image!.path));
+    ref.getDownloadURL().then((value) {
+      setState(() {
+        imageUrl = value;
+      });
+    });
+    Map<String, dynamic> imageMap = {
+      "message": imageUrl,
+      "isSender": true,
+      "time": DateTime.now().millisecondsSinceEpoch,
+      "messageType": 'image',
+      "messageStatus": 'viewed'
+    };
+    dataBaseMethods.addConversationMessage("Alfred jimmy", imageMap);
+  }
+
+  sendMessage(controller) {
+    if (controller.text.isNotEmpty) {
+      Map<String, dynamic> messageMap = {
+        "message": controller.text,
+        "isSender": true,
+        "time": DateTime.now().millisecondsSinceEpoch,
+        "messageType": 'text',
+        "messageStatus": 'viewed'
+      };
+      dataBaseMethods.addConversationMessage("Alfred jimmy", messageMap);
+      Future.delayed(const Duration(milliseconds: 1000));
+      dataBaseMethods.makePostRequest(controller.text, food);
+      setState(() {
+        controller.text = "";
+      });
+    }
+  }
+
   sendBar() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 0.75.h, vertical: 1.h),
@@ -179,12 +246,17 @@ class _ChatScreenState extends State<ChatScreen> {
                 SizedBox(
                   width: 4.w,
                 ),
-                CircleAvatar(
-                  radius: 2.5.h,
-                  backgroundColor: const Color(0xff8ed0ab),
-                  child: const Icon(
-                    Icons.camera,
-                    color: Colors.white,
+                GestureDetector(
+                  onTap: () {
+                    pickImage(true);
+                  },
+                  child: CircleAvatar(
+                    radius: 2.5.h,
+                    backgroundColor: const Color(0xff8ed0ab),
+                    child: const Icon(
+                      Icons.camera,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
                 Container(
@@ -198,9 +270,8 @@ class _ChatScreenState extends State<ChatScreen> {
                     child: TextFormField(
                       controller: _controller,
                       onFieldSubmitted: (value) {
-                        dataBaseMethods.makePostRequest(_controller.text);
+                        sendMessage(_controller);
                         print(_controller.text);
-                        _controller.text = '';
                       },
                       cursorHeight: 20,
                       cursorColor: Colors.lightGreen[200],
@@ -223,7 +294,9 @@ class _ChatScreenState extends State<ChatScreen> {
                   height: 55,
                   width: 55,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      pickImage(false);
+                    },
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
                       backgroundColor: Colors.transparent,
