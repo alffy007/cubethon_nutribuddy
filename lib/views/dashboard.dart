@@ -295,8 +295,7 @@ class _DashboardState extends State<Dashboard> {
                           onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) => ChatScreen()),
+                              MaterialPageRoute(builder: (context) => ),
                             );
                           },
                           child: Container(
