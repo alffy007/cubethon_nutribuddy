@@ -15,6 +15,7 @@ class ThirdPage extends StatefulWidget {
 class _ThirdPageState extends State<ThirdPage> {
   @override
   late final TextEditingController _height;
+  @override
   void initState() {
     _height = TextEditingController();
     super.initState();
@@ -92,9 +93,7 @@ class _ThirdPageState extends State<ThirdPage> {
                                             255, 243, 238, 238))))),
                     onPressed: () async {
                       try {
-                        print('------------------------' +
-                            _height.toString() +
-                            '---------');
+                        print('------------------------$_height---------');
                         print(widget.age);
                         print(widget.gender);
                         int h = int.parse(_height.text);

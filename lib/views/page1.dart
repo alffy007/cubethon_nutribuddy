@@ -12,6 +12,7 @@ class FirstPage extends StatefulWidget {
 
 class _FirstPageState extends State<FirstPage> {
   late final TextEditingController _age;
+  @override
   void initState() {
     _age = TextEditingController();
     super.initState();
@@ -90,9 +91,7 @@ class _FirstPageState extends State<FirstPage> {
                     onPressed: () async {
                       int age = int.parse(_age.text);
                       try {
-                        print('------------------------' +
-                            age.toString() +
-                            '---------');
+                        print('------------------------$age---------');
                         Navigator.push(
                           context,
                           MaterialPageRoute(

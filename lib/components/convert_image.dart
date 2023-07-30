@@ -12,7 +12,7 @@ class ConverterImage {
 
     String food = "";
 
-    List<int> imageBytes = image!.readAsBytesSync();
+    List<int> imageBytes = image.readAsBytesSync();
 
     var apiUrl = Uri.parse(
         'https://api-inference.huggingface.co/models/rajistics/finetuned-indian-food'); // Replace with your API endpoint

@@ -1,7 +1,5 @@
 import 'dart:io';
-import 'dart:math';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cubethon_nutribuddy/components/convert_image.dart';
 import 'package:cubethon_nutribuddy/db/database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -95,6 +93,14 @@ class _ChatScreenState extends State<ChatScreen> {
     } catch (e) {
       print('error start rec: $e');
     }
+    Map<String, dynamic> audiomap = {
+      "message": "",
+      "isSender": true,
+      "time": DateTime.now().millisecondsSinceEpoch,
+      "messageType": 'audio',
+      "messageStatus": 'viewed'
+    };
+    dataBaseMethods.addAudioMessage('Alfred jimmy', audiomap);
     dataBaseMethods.uploadAudioToFirebase(audiopath);
     dataBaseMethods.uploadAudioFromAssets(audiopath);
   }
@@ -183,12 +189,12 @@ class _ChatScreenState extends State<ChatScreen> {
       dynamic result = await ConverterImage().uploadImage(imageTemp);
       food = result as String;
       print(food);
-    } on PlatformException catch (e) {
+    } on PlatformException {
       print('failed to pik image');
     }
-    index = index++;
+    index = index + 1;
     print(index);
-    Reference ref = FirebaseStorage.instance.ref().child("newpic$index.jpg");
+    Reference ref = FirebaseStorage.instance.ref().child("newpic${index}.jpg");
     await ref.putFile(File(image!.path));
     ref.getDownloadURL().then((value) {
       setState(() {

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'page5.dart';
-import 'page6.dart';
 
 class ForthPage extends StatefulWidget {
   ForthPage(
@@ -21,11 +20,13 @@ class ForthPage extends StatefulWidget {
 class _ForthPageState extends State<ForthPage> {
   @override
   late final TextEditingController _weight;
+  @override
   void initState() {
     _weight = TextEditingController();
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -98,9 +99,7 @@ class _ForthPageState extends State<ForthPage> {
                     onPressed: () async {
                       final weight = _weight.text;
                       try {
-                        print('------------------------' +
-                            weight.toString() +
-                            '---------');
+                        print('------------------------$weight---------');
                         int w = int.parse(_weight.text);
                         Navigator.push(
                           context,

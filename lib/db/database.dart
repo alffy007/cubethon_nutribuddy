@@ -24,8 +24,8 @@ class DataBaseMethods {
 
   getUserData() async {
     return await FirebaseFirestore.instance
-        .collection("users")
-        .where('profile_pic')
+        .collection("new")
+        .doc('calorie')
         .get();
   }
 
@@ -68,6 +68,17 @@ class DataBaseMethods {
     });
   }
 
+  addAudioMessage(String chatRoomId, messageMap) {
+    FirebaseFirestore.instance
+        .collection('chatroom')
+        .doc(chatRoomId)
+        .collection('chats')
+        .add(messageMap)
+        .catchError((e) {
+      print(e.toString());
+    });
+  }
+
   getConversationMessage(String chatRoomId) async {
     return FirebaseFirestore.instance
         .collection('chatroom')
@@ -84,21 +95,21 @@ class DataBaseMethods {
         .snapshots();
   }
 
-  Future<void> makePostRequest(String sentence,String food) async {
+  Future<void> makePostRequest(String sentence, String food) async {
     const url =
         'https://final-production-44a7.up.railway.app/question'; // Replace with your API endpoint
 
     // The data you want to send in the POST request
     Map<String, dynamic> postData = {
-      "diet": "kieto",
+      "diet": "eat less fat foods, drink more water, eat less sugar  ",
       "weight": "60",
       "height": "5.7",
       "age": "23",
       "healthissues": "diabetic",
       "food": food,
       "sentence": sentence,
-      "date":"28-07-23",
-      "time":DateTime.now().millisecondsSinceEpoch
+      "date": "30-07-23",
+      "time": DateTime.now().millisecondsSinceEpoch
     };
 
     try {
@@ -125,13 +136,13 @@ class DataBaseMethods {
 
   makeDietRequest(Map aboutmap) async {
     const url =
-        'https://web-production-c604.up.railway.app/diet'; // Replace with your API endpoint
+        'https://final-production-44a7.up.railway.app/diet'; // Replace with your API endpoint
     Map<String, dynamic> postData = {
-      "weight": aboutmap['weight'],
-      "height": aboutmap['height'],
-      "age": aboutmap['age'],
-      "healthissues": aboutmap['healthissues'],
-      "v_or_n": aboutmap['v_or_n'],
+      "weight": aboutmap['weight'].toString(),
+      "height": aboutmap['height'].toString(),
+      "age": aboutmap['age'].toString(),
+      "healthissues": aboutmap['healthissues'].toString(),
+      "von": aboutmap['v_or_n'].toString(),
     };
     try {
       final response = await http.post(
@@ -144,7 +155,17 @@ class DataBaseMethods {
 
       if (response.statusCode == 200) {
         // Request successful, handle the response data
-        print('Response: ${response.body}');
+        // List jsondata = [
+        //   jsonDecode(response.body)["result"][0],
+        //   jsonDecode(response.body)["result"][1],
+        //   jsonDecode(response.body)["result"][2],
+        //   jsonDecode(response.body)["result"][3],
+        //   jsonDecode(response.body)["result"][4]
+        // ];
+        Future jsonData = jsonDecode(response.body)["result"];
+
+        print(jsonDecode(response.body)["result"]);
+        return jsonData;
       } else {
         // Request failed with an error status code, handle the error
         print('Error: ${response.reasonPhrase}');

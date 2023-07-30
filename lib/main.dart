@@ -1,10 +1,8 @@
-import 'package:cubethon_nutribuddy/views/chatscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'services/firebase_options.dart';
-import 'views/dashboard.dart';
 import 'views/first.dart';
 
 void main() async {

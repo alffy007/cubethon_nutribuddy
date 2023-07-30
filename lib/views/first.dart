@@ -28,7 +28,7 @@ class _FirstState extends State<First> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         body: Visibility(
           visible: isLoaded,
           replacement: const Center(child: CircularProgressIndicator()),
@@ -38,9 +38,9 @@ class _FirstState extends State<First> {
               child: Container(
                 height: 400,
                 width: double.infinity,
-                child: VideoPlayer(controller),
                 decoration:
                     BoxDecoration(borderRadius: BorderRadius.circular(200)),
+                child: VideoPlayer(controller),
               ),
             ),
             Expanded(
@@ -79,7 +79,7 @@ class _FirstState extends State<First> {
 
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
-                                Color.fromARGB(255, 253, 190, 208)),
+                                const Color.fromARGB(255, 253, 190, 208)),
                             shape: MaterialStateProperty.all<
                                 RoundedRectangleBorder>(
                               const RoundedRectangleBorder(
@@ -127,7 +127,7 @@ class _FirstState extends State<First> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
           ]),

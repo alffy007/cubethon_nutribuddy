@@ -22,6 +22,7 @@ class FifthPage extends StatefulWidget {
 class _FifthPageState extends State<FifthPage> {
   @override
   late final TextEditingController _health_issues;
+  @override
   void initState() {
     _health_issues = TextEditingController();
     super.initState();
@@ -95,12 +96,10 @@ class _FifthPageState extends State<FifthPage> {
                               side: BorderSide(
                                   color: Color.fromARGB(255, 243, 238, 238))))),
                   onPressed: () async {
-                    final health_issues = _health_issues.text;
+                    final healthIssues = _health_issues.text;
                     try {
-                      print('------------------------' +
-                          health_issues.toString() +
-                          '---------');
-                      String health_issue = _health_issues.text.toString();
+                      print('------------------------$healthIssues---------');
+                      String healthIssue = _health_issues.text.toString();
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -109,7 +108,7 @@ class _FifthPageState extends State<FifthPage> {
                                   gender: widget.gender,
                                   height: widget.height,
                                   weight: widget.weight,
-                                  healthissues: health_issue,
+                                  healthissues: healthIssue,
                                 )),
                       );
                     } catch (e) {}

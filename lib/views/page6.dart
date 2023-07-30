@@ -2,9 +2,9 @@ import 'package:cubethon_nutribuddy/db/database.dart';
 import 'package:cubethon_nutribuddy/views/chatviewer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart';
 
 import 'dashboard.dart';
-import 'page3.dart';
 
 class SixthPage extends StatefulWidget {
   SixthPage(
@@ -27,6 +27,7 @@ class SixthPage extends StatefulWidget {
 class _SixthPageState extends State<SixthPage> {
   @override
   late final _veg_or_nonveg;
+  late final List data;
 
   @override
   Widget build(BuildContext context) {
@@ -66,23 +67,23 @@ class _SixthPageState extends State<SixthPage> {
                       child: Card(
                         child: InkWell(
                           onTap: () {
-                            final _veg_or_nonveg = "vegan";
-                            print('------------------------' +
-                                _veg_or_nonveg.toString() +
-                                '---------');
-                            String v_or_n = _veg_or_nonveg.toString();
+                            const vegOrNonveg = "vegan";
+                            print(
+                                '------------------------$vegOrNonveg---------');
+                            String vOrN = vegOrNonveg.toString();
                             print(widget.age);
                             print(widget.gender);
                             print(widget.height);
                             print(widget.weight);
                             print(widget.healthissues);
-                            updateAbout(
+
+                       updateAbout(
                                 widget.age,
                                 widget.height,
                                 widget.weight,
                                 widget.gender,
                                 widget.healthissues,
-                                v_or_n);
+                                vOrN);
 
                             Navigator.push(
                               context,
@@ -91,13 +92,13 @@ class _SixthPageState extends State<SixthPage> {
                             );
                           },
                           child: Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               image: DecorationImage(
                                 image: AssetImage('assets/images/veg.png'),
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            padding: EdgeInsets.all(16.0),
+                            padding: const EdgeInsets.all(16.0),
                           ),
                         ),
                       ),
@@ -108,24 +109,23 @@ class _SixthPageState extends State<SixthPage> {
                       width: 150,
                       child: Card(
                         child: InkWell(
-                          onTap: () {
-                            final _veg_or_nonveg = "nonvegan";
-                            print('------------------------' +
-                                _veg_or_nonveg.toString() +
-                                '---------');
-                            String v_or_n = _veg_or_nonveg.toString();
+                          onTap: () async {
+                            const vegOrNonveg = "nonvegan";
+                            print(
+                                '------------------------$vegOrNonveg---------');
+                            String vOrN = vegOrNonveg.toString();
                             print(widget.age);
                             print(widget.gender);
                             print(widget.height);
                             print(widget.weight);
                             print(widget.healthissues);
-                            updateAbout(
+                             updateAbout(
                                 widget.age,
                                 widget.height,
                                 widget.weight,
                                 widget.gender,
                                 widget.healthissues,
-                                v_or_n);
+                                vOrN);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -133,13 +133,13 @@ class _SixthPageState extends State<SixthPage> {
                             );
                           },
                           child: Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               image: DecorationImage(
                                 image: AssetImage('assets/images/non.png'),
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            padding: EdgeInsets.all(16.0),
+                            padding: const EdgeInsets.all(16.0),
                           ),
                         ),
                       ),
@@ -165,23 +165,27 @@ class _SixthPageState extends State<SixthPage> {
                               side: BorderSide(
                                   color: Color.fromARGB(255, 243, 238, 238))))),
                   onPressed: () async {
-                    final _veg_or_nonveg = " ";
+                    const vegOrNonveg = " ";
                     try {
-                      print('------------------------' +
-                          _veg_or_nonveg.toString() +
-                          '---------');
-                      String v_or_n = _veg_or_nonveg.toString();
+                      print('------------------------$vegOrNonveg---------');
+                      String vOrN = vegOrNonveg.toString();
                       print(widget.age);
                       print(widget.gender);
                       print(widget.height);
                       print(widget.weight);
                       print(widget.healthissues);
-                      updateAbout(widget.age, widget.height, widget.weight,
-                          widget.gender, widget.healthissues, v_or_n);
+                      data = await updateAbout(
+                          widget.age,
+                          widget.height,
+                          widget.weight,
+                          widget.gender,
+                          widget.healthissues,
+                          vOrN);
 
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Dashboard()),
+                        MaterialPageRoute(
+                            builder: (context) => const Dashboard()),
                       );
                     } catch (e) {}
                   },
@@ -200,19 +204,19 @@ class _SixthPageState extends State<SixthPage> {
         ));
   }
 
-  updateAbout(age, height, weight, gender, healthissues, v_or_n) {
+  updateAbout(age, height, weight, gender, healthissues, vOrN) async {
     Map<String, dynamic> messagemap = {
-      "age": age,
-      "height": height,
-      "weight": weight,
-      "healthissue": healthissues,
-      "gender": gender,
-      "v_or_n": v_or_n
+      "age": age.toString(),
+      "height": height.toString(),
+      "weight": weight.toString(),
+      "healthissue": healthissues.toString(),
+      "gender": gender.toString(),
+      "v_or_n": vOrN.toString()
 
       // "dietname":dietname;
       // "dietinstruction":dietinstructions;
     };
-    DataBaseMethods().updateAbout("about", messagemap);
-    DataBaseMethods().makeDietRequest(messagemap);
+    await DataBaseMethods().updateAbout("about", messagemap);
+
   }
 }

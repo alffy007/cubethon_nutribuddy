@@ -53,9 +53,7 @@ class _SecondPageState extends State<SecondPage> {
                         child: InkWell(
                           onTap: () {
                             _gender = "man";
-                            print('------------------------' +
-                                _gender.toString() +
-                                '---------');
+                            print('------------------------$_gender---------');
                             print(widget.age);
 
                             Navigator.push(
@@ -84,15 +82,13 @@ class _SecondPageState extends State<SecondPage> {
                       child: Card(
                         child: InkWell(
                           onTap: () {
-                            final _gender = "women";
-                            print('------------------------' +
-                                _gender.toString() +
-                                '---------');
+                            const gender = "women";
+                            print('------------------------$gender---------');
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => ThirdPage(
-                                      age: widget.age, gender: _gender)),
+                                      age: widget.age, gender: gender)),
                             );
                           },
                           child: Container(
@@ -128,16 +124,14 @@ class _SecondPageState extends State<SecondPage> {
                               side: BorderSide(
                                   color: Color.fromARGB(255, 243, 238, 238))))),
                   onPressed: () async {
-                    final _gender = " ";
+                    const gender = " ";
                     try {
-                      print('------------------------' +
-                          _gender.toString() +
-                          '---------');
+                      print('------------------------$gender---------');
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                ThirdPage(age: widget.age, gender: _gender)),
+                                ThirdPage(age: widget.age, gender: gender)),
                       );
                     } catch (e) {}
                   },

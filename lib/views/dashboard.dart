@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cubethon_nutribuddy/db/database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -11,6 +13,34 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  int calorie = 717;
+  @override
+  void initState() {
+    setState(() {
+      fetchData();
+    });
+    super.initState();
+  }
+
+  Future<void> fetchData() async {
+    try {
+      // Get a reference to the Firestore collection
+      CollectionReference users = FirebaseFirestore.instance.collection('new');
+
+      // Get a specific document from the collection (replace 'user_id' with the actual document ID)
+      DocumentSnapshot<Object?> document = await users.doc('user_id').get();
+
+      // Check if the document exists
+      if (document.exists) {
+        calorie = document['calorie'];
+      } else {
+        print('Document does not exist');
+      }
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,7 +103,8 @@ class _DashboardState extends State<Dashboard> {
                       // Handle the button tap here
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ChatScreen()),
+                        MaterialPageRoute(
+                            builder: (context) => const ChatScreen()),
                       );
                     },
                     child: Container(
@@ -91,12 +122,12 @@ class _DashboardState extends State<Dashboard> {
                             height: 300,
                             width: 300,
                           ),
-                          Text(
+                          const Text(
                             'Tap to Chat',
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w700,
-                              color: const Color.fromARGB(255, 0, 0, 0),
+                              color: Color.fromARGB(255, 0, 0, 0),
                             ),
                           ),
                         ],
@@ -144,7 +175,7 @@ class _DashboardState extends State<Dashboard> {
                               ),
                             ),
                             Text(
-                              '580 cal',
+                              calorie.toString(),
                               style: GoogleFonts.poppins(
                                 fontSize: 30,
                                 fontWeight: FontWeight.w700,
