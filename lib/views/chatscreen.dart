@@ -194,7 +194,7 @@ class _ChatScreenState extends State<ChatScreen> {
     }
     index = index + 1;
     print(index);
-    Reference ref = FirebaseStorage.instance.ref().child("newpic${index}.jpg");
+    Reference ref = FirebaseStorage.instance.ref().child("newpic$index.jpg");
     await ref.putFile(File(image!.path));
     ref.getDownloadURL().then((value) {
       setState(() {

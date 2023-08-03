@@ -2,7 +2,6 @@ import 'package:cubethon_nutribuddy/db/database.dart';
 import 'package:cubethon_nutribuddy/views/chatviewer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart';
 
 import 'dashboard.dart';
 
@@ -88,7 +87,7 @@ class _SixthPageState extends State<SixthPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Dietviewer()),
+                                  builder: (context) => const Dietviewer()),
                             );
                           },
                           child: Container(
@@ -129,7 +128,7 @@ class _SixthPageState extends State<SixthPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Dietviewer()),
+                                  builder: (context) => const Dietviewer()),
                             );
                           },
                           child: Container(

@@ -95,7 +95,7 @@ class _DietviewerState extends State<Dietviewer> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Dashboard()));
+                                builder: (context) => const Dashboard()));
                       },
                       style: ButtonStyle(
                           iconColor:
